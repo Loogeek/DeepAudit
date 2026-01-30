@@ -38,6 +38,10 @@ jobs:
       - name: 检出代码
         uses: actions/checkout@v4
 
+      - name: 转换用户名为小写
+        id: lowercase
+        run: echo "owner=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
+
       - name: 设置 Node.js
         if: ${{ github.event.inputs.build_frontend == 'true' }}
         uses: actions/setup-node@v4
@@ -84,7 +88,7 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
-            ghcr.io/${{ github.repository_owner }}/deepaudit-frontend:${{ github.event.inputs.tag }}
+            ghcr.io/${{ steps.lowercase.outputs.owner }}/deepaudit-frontend:${{ github.event.inputs.tag }}
           cache-from: type=gha,scope=frontend
           cache-to: type=gha,mode=max,scope=frontend
 
@@ -97,7 +101,7 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
-            ghcr.io/${{ github.repository_owner }}/deepaudit-backend:${{ github.event.inputs.tag }}
+            ghcr.io/${{ steps.lowercase.outputs.owner }}/deepaudit-backend:${{ github.event.inputs.tag }}
           cache-from: type=gha,scope=backend
           cache-to: type=gha,mode=max,scope=backend
 
@@ -110,7 +114,7 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
-            ghcr.io/${{ github.repository_owner }}/deepaudit-sandbox:${{ github.event.inputs.tag }}
+            ghcr.io/${{ steps.lowercase.outputs.owner }}/deepaudit-sandbox:${{ github.event.inputs.tag }}
           cache-from: type=gha,scope=sandbox
           cache-to: type=gha,mode=max,scope=sandbox
 
@@ -119,11 +123,11 @@ jobs:
           echo "## 镜像已推送到 GHCR" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           if [ "${{ github.event.inputs.build_frontend }}" == "true" ]; then
-            echo "- \`ghcr.io/${{ github.repository_owner }}/deepaudit-frontend:${{ github.event.inputs.tag }}\`" >> $GITHUB_STEP_SUMMARY
+            echo "- \`ghcr.io/${{ steps.lowercase.outputs.owner }}/deepaudit-frontend:${{ github.event.inputs.tag }}\`" >> $GITHUB_STEP_SUMMARY
           fi
           if [ "${{ github.event.inputs.build_backend }}" == "true" ]; then
-            echo "- \`ghcr.io/${{ github.repository_owner }}/deepaudit-backend:${{ github.event.inputs.tag }}\`" >> $GITHUB_STEP_SUMMARY
+            echo "- \`ghcr.io/${{ steps.lowercase.outputs.owner }}/deepaudit-backend:${{ github.event.inputs.tag }}\`" >> $GITHUB_STEP_SUMMARY
           fi
           if [ "${{ github.event.inputs.build_sandbox }}" == "true" ]; then
-            echo "- \`ghcr.io/${{ github.repository_owner }}/deepaudit-sandbox:${{ github.event.inputs.tag }}\`" >> $GITHUB_STEP_SUMMARY
+            echo "- \`ghcr.io/${{ steps.lowercase.outputs.owner }}/deepaudit-sandbox:${{ github.event.inputs.tag }}\`" >> $GITHUB_STEP_SUMMARY
           fi
