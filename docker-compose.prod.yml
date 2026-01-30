@@ -87,7 +87,7 @@ services:
       - deepaudit-network
 
   frontend:
-    image: ghcr.io/lintsinghua/deepaudit-frontend:latest
+    image: ghcr.io/loogeek/deepaudit-frontend:latest
     restart: unless-stopped
     ports:
       - "3000:80"
