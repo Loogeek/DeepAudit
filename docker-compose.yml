@@ -93,7 +93,7 @@ services:
       - http_proxy=
       - https_proxy=
       - NO_PROXY=*
-      - VITE_API_BASE_URL=/api/v1
+      - VITE_API_BASE_URL=/deepaudit/api/v1
     depends_on:
       - backend
     networks:
