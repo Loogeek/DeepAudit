@@ -1,7 +1,8 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 // API base URL - points to /api/v1 on the backend
-const baseURL = import.meta.env.VITE_API_BASE_URL || '/api/v1';
+// 🔥 固定使用 /deepaudit/api/v1 作为 API 基础路径
+const baseURL = '/deepaudit/api/v1';
 
 export const apiClient = axios.create({
   baseURL,

@@ -11,8 +11,8 @@ export const env = {
   // 应用ID
   APP_ID: import.meta.env.VITE_APP_ID || 'deepaudit',
   
-  // API 基础URL
-  API_BASE_URL: import.meta.env.VITE_API_BASE_URL || '/api/v1',
+  // API 基础URL（固定使用 /deepaudit/api/v1）
+  API_BASE_URL: '/deepaudit/api/v1',
   
   // ==================== 开发环境标识 ====================
   isDev: import.meta.env.DEV,

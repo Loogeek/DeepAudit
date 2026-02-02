@@ -250,8 +250,8 @@ export async function getAgentTaskSummary(taskId: string): Promise<AgentTaskSumm
  * 创建 SSE 事件源
  */
 export function createAgentEventSource(taskId: string, afterSequence = 0): EventSource {
-  const baseUrl = import.meta.env.VITE_API_URL || "";
-  const url = `${baseUrl}/api/v1/agent-tasks/${taskId}/events?after_sequence=${afterSequence}`;
+  const baseUrl = "";  // 使用相对路径，前端 nginx 会代理到 /deepaudit/api/
+  const url = `${baseUrl}/deepaudit/api/v1/agent-tasks/${taskId}/events?after_sequence=${afterSequence}`;
 
   // 注意：EventSource 不支持自定义 headers，需要通过 URL 参数或 cookie 传递认证
   // 如果需要认证，可以考虑使用 fetch + ReadableStream 替代
