@@ -33,8 +33,9 @@ RUN pnpm config set network-timeout 300000 && \
 # 复制源代码
 COPY . .
 
-# 🔥 构建时使用占位符 - 实现 Build Once Run Anywhere
-ENV VITE_API_BASE_URL=__API_BASE_URL__
+# 🔥 构建时从外部接收 API 路径，默认值为 /deepaudit/api/v1
+ARG VITE_API_BASE_URL=/deepaudit/api/v1
+ENV VITE_API_BASE_URL=${VITE_API_BASE_URL}
 
 # 构建生产版本
 RUN pnpm build
