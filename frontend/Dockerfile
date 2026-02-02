@@ -48,6 +48,10 @@ FROM nginx:alpine
 # 复制构建产物
 COPY --from=builder /app/dist /usr/share/nginx/html
 
+# 强制让下面的 COPY 层失效（每次构建都不同）
+ARG CACHE_BUST=unknown
+RUN echo "Cache bust: $CACHE_BUST"
+
 # 复制 Nginx 配置 (包含 SSE 反向代理配置)
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
