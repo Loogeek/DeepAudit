@@ -1,0 +1,7 @@
+services:
+  frontend:
+    image: ghcr.nju.edu.cn/loogeek/deepaudit-frontend:latest
+    ports:
+      - "3000:80"
+    environment:
+      - BACKEND_URL=http://localhost:8000  # 如果后端在别处运行
