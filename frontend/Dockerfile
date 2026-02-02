@@ -35,10 +35,9 @@ COPY . .
 
 # 🔥 构建时从外部接收 API 路径，默认值为 /deepaudit/api/v1
 ARG VITE_API_BASE_URL=/deepaudit/api/v1
-ENV VITE_API_BASE_URL=${VITE_API_BASE_URL}
 
-# 构建生产版本
-RUN pnpm build
+# 构建生产版本（显式传递 VITE_API_BASE_URL 给 Vite）
+RUN VITE_API_BASE_URL=${VITE_API_BASE_URL} pnpm build
 
 # =============================================
 # 生产镜像 - 使用 Nginx (支持 SSE 反向代理)
